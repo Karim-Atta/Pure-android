@@ -38,14 +38,16 @@ class MainActivity : AppCompatActivity() {
         instantiateCountedWordsViewModel()
         setupCountedWordsList()
         countedWordViewModel.state.value?.let {currentState ->
-            if (currentState.countedWords.isEmpty())
+            if (currentState.countedWords.isEmpty()) {
                 requestCountedWords()
+            }
         }
         observeUIState()
     }
 
     private fun observeUIState() {
         countedWordViewModel.state.observe(this, { countedWordsState ->
+            EspressoIdlingResource.decrement()
             setViewToDefault()
             when {
                 countedWordsState.showShowProgressBar -> {
@@ -166,11 +168,13 @@ class MainActivity : AppCompatActivity() {
                         if (newText.isNullOrBlank()) {
                             if (countedWordsUIState.queryText != null) {
                                 newText?.let {
+                                    EspressoIdlingResource.increment()
                                     countedWordViewModel.search(newText)
                                 }
                             }
                         }else
                             newText.let {
+                                EspressoIdlingResource.increment()
                                 countedWordViewModel.search(newText)
                             }
                     }
@@ -202,6 +206,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_sort -> {
+                EspressoIdlingResource.increment()
                 countedWordViewModel.sortCountedOrder()
                 true
             }

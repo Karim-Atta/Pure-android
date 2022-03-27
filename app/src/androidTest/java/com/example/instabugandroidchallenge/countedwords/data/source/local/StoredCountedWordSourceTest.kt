@@ -49,6 +49,6 @@ class StoredCountedWordSourceTest{
 
     @After
     fun tearDown() {
-        dbHelper.clearDb()
+        dbHelper.clearDbAndRecreate()
     }
 }

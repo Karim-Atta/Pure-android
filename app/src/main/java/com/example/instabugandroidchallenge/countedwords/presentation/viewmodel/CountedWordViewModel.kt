@@ -30,7 +30,6 @@ class CountedWordViewModel(private val countedWordsUseCases: CountedWordsUseCase
                             showShowProgressBar = false
                         )
                     )
-                    EspressoIdlingResource.decrement()
                 }.exceptionally { throwable ->
                     throwable.localizedMessage?.let { localizedMessage ->
                         _state.postValue(
@@ -42,7 +41,6 @@ class CountedWordViewModel(private val countedWordsUseCases: CountedWordsUseCase
                                 showShowProgressBar = false
                             )
                         )
-                        EspressoIdlingResource.decrement()
                     }
                     null
                 }
@@ -50,7 +48,6 @@ class CountedWordViewModel(private val countedWordsUseCases: CountedWordsUseCase
     }
 
     fun sortCountedOrder() {
-        EspressoIdlingResource.increment()
         currentUIState.also { currentUIState ->
             countedWordsUseCases.sortCountedWordsUseCase(
                 currentUIState.countedWords,
@@ -72,7 +69,6 @@ class CountedWordViewModel(private val countedWordsUseCases: CountedWordsUseCase
                     )
                 }
             }
-            EspressoIdlingResource.decrement()
         }
     }
 
