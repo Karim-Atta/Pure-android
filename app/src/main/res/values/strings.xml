@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">InstabugAndroidChallenge</string>
+    <string name="app_name">InstabugChallenge</string>
+    <string name="sort">sort</string>
+    <string name="search">Search</string>
+    <string name="empty_error">empty counted words</string>
+    <string name="descending">descending</string>
 </resources>
